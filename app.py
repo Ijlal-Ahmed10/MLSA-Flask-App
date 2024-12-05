@@ -1,5 +1,4 @@
 from flask import Flask, Response
-from flask_sock import Sock
 from waitress import serve
 import cv2
 
@@ -33,7 +32,7 @@ def generate_frames():
     camera.release()
 
 
-@Sock.route('/video_feed')
+@app.route('/video_feed')
 def video_feed():
     return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
@@ -44,4 +43,4 @@ if __name__ == '__main__':
         app.run(host='0.0.0.0', port=5000, debug=True)  # stream on http://<laptop-ip>:5000/video_feed
 
     else:
-        serve(app, host='0.0.0.0', port=5000, threads=2)
+        app(host='0.0.0.0', port=5000, debug=False)
