@@ -1,5 +1,4 @@
 from flask import Flask, Response
-from waitress import serve
 import cv2
 
 app = Flask(__name__)
